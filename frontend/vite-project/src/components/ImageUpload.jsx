@@ -24,20 +24,24 @@ const ImageUpload = () => {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:8000/upload/', {
+      // Use relative URL so it works via Vite dev proxy
+      const response = await fetch('/upload/', {
         method: 'POST',
         body: formData,
       });
 
       if (!response.ok) {
+        const text = await response.text();
+        console.error('Upload failed, status:', response.status, text);
         throw new Error('Upload failed');
       }
 
       const data = await response.json();
-      setImageUrl(`http://localhost:8000${data.url}`);
+      // The backend returns { url: "/uploads/<filename>" }
+      setImageUrl(data.url.startsWith('http') ? data.url : data.url);
     } catch (err) {
-      setError('Failed to upload image. Please try again.');
       console.error('Upload error:', err);
+      setError('Failed to upload image. Please try again.');
     } finally {
       setIsUploading(false);
     }
