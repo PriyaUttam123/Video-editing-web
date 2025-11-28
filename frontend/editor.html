@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Editor - Video-Edit-Web</title>
+    <link rel="stylesheet" href="css/editor.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="editor-container">
+        <header class="editor-header">
+            <h1>Video Editor</h1>
+            <div class="actions">
+                <button id="submitBtn" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Submit Video
+                </button>
+            </div>
+        </header>
+
+        <div class="editor-layout">
+            <!-- Left Sidebar - Tools -->
+            <aside class="toolbar">
+                <div class="tool-section">
+                    <h3>Media</h3>
+                    <button id="uploadVideoBtn" class="btn btn-block">
+                        <i class="fas fa-upload"></i> Upload Video
+                    </button>
+                    <input type="file" id="videoUpload" accept="video/*" style="display: none;">
+                </div>
+
+                <div class="tool-section">
+                    <h3>Overlays</h3>
+                    <button id="addTextBtn" class="btn btn-block">
+                        <i class="fas fa-font"></i> Add Text
+                    </button>
+                    <button id="addImageBtn" class="btn btn-block">
+                        <i class="far fa-image"></i> Add Image
+                    </button>
+                    <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="tool-section">
+                    <h3>Properties</h3>
+                    <div id="overlayProperties" class="properties-panel">
+                        <p class="hint">Select an overlay to edit its properties</p>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content - Video Preview -->
+            <main class="preview-container">
+                <div id="videoContainer" class="video-container">
+                    <video id="videoPreview" controls style="display: none;"></video>
+                    <div id="dropZone" class="drop-zone">
+                        <i class="fas fa-upload"></i>
+                        <p>Drag & drop a video file here</p>
+                        <p>or</p>
+                        <button id="browseFilesBtn" class="btn btn-primary">Browse Files</button>
+                    </div>
+                </div>
+                <div class="timeline-container">
+                    <div class="timeline">
+                        <div class="timeline-track">
+                            <!-- Timeline markers will be added here -->
+                        </div>
+                    </div>
+                    <div class="timeline-controls">
+                        <button id="playPauseBtn"><i class="fas fa-play"></i></button>
+                        <span id="currentTime">00:00</span> / <span id="duration">00:00</span>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Text Overlay Modal -->
+    <div id="textOverlayModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Add Text Overlay</h3>
+            <div class="form-group">
+                <label for="overlayText">Text:</label>
+                <input type="text" id="overlayText" placeholder="Enter text...">
+            </div>
+            <div class="form-group">
+                <label for="textColor">Color:</label>
+                <input type="color" id="textColor" value="#ffffff">
+            </div>
+            <div class="form-group">
+                <label for="fontSize">Font Size:</label>
+                <input type="range" id="fontSize" min="12" max="72" value="24">
+            </div>
+            <button id="addTextOverlayBtn" class="btn btn-primary">Add Text</button>
+        </div>
+    </div>
+
+    <script src="js/editor.js" type="module"></script>
+</body>
+</html>
